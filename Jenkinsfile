@@ -12,12 +12,12 @@ pipeline {
             }
         }
 
-        stage('Run Cypress Tests') {
+stage('Run Cypress Tests') {
     steps {
         script {
             // Run Cypress tests and capture logs
             def logsFile = 'C:\\Users\\BenScott\\.jenkins\\workspace\\cypress_test_pipeline\\cypress-logs.txt'
-            bat 'npx cypress run --spec cypress/e2e/mainTest.cy.js 2>&1 | tee ' + logsFile
+            bat 'npx cypress run --spec cypress/e2e/mainTest.cy.js 2>&1 | Out-File -FilePath ' + logsFile
             
             echo "Cypress Logs:"
             echo "--- Start of Logs ---"
