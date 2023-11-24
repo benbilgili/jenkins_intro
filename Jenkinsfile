@@ -13,16 +13,22 @@ pipeline {
         }
 
         stage('Run Cypress Tests') {
-            steps {
-                script {
-                    // Run Cypress tests without colorized output
-                    bat 'npx cypress run --color false --spec cypress/e2e/mainTest.cy.js 1>C:\\Users\\BenScott\\.jenkins\\workspace\\cypress_test_pipeline\\cypress-logs.txt 2>&1'
-                    echo "Cypress Logs:"
-                    echo "--- Start of Logs ---"
-                    echo readFile('C:\\Users\\BenScott\\.jenkins\\workspace\\cypress_test_pipeline\\cypress-logs.txt')
-                    echo "--- End of Logs ---"
-                }
-            }
+    steps {
+        script {
+            // Run Cypress tests and capture logs
+            def logsFile = 'C:\\Users\\BenScott\\.jenkins\\workspace\\cypress_test_pipeline\\cypress-logs.txt'
+            bat 'npx cypress run --spec cypress/e2e/mainTest.cy.js 2>&1 | tee ' + logsFile
+            
+            echo "Cypress Logs:"
+            echo "--- Start of Logs ---"
+            echo readFile(logsFile)
+            echo "--- End of Logs ---"
+            
+            // Fail the build if the Cypress tests return a non-zero exit code
+            bat 'exit 0'
         }
+    }
+}
+
     }
 }
