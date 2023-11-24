@@ -20,7 +20,7 @@ pipeline {
                     echo "Cypress Logs:"
                     echo "--- Start of Logs ---"
                     echo readFile('C:\\Users\\BenScott\\.jenkins\\workspace\\cypress_test_pipeline\\cypress-logs.txt')
-                    echo "--- End of Logs ---"
+                    echo "-- End of Logs --"
                 }
             }
         }
