@@ -15,8 +15,8 @@ pipeline {
         stage('Run Cypress Tests') {
             steps {
                 script {
-                    // Run Cypress tests and print logs directly to the console
-                    bat 'npx cypress run --spec cypress/e2e/mainTest.cy.js 1>C:\\Users\\BenScott\\.jenkins\\workspace\\cypress_test_pipeline\\cypress-logs.txt 2>&1'
+                    // Run Cypress tests without colorized output
+                    bat 'npx cypress run --color false --spec cypress/e2e/mainTest.cy.js 1>C:\\Users\\BenScott\\.jenkins\\workspace\\cypress_test_pipeline\\cypress-logs.txt 2>&1'
                     echo "Cypress Logs:"
                     echo "--- Start of Logs ---"
                     echo readFile('C:\\Users\\BenScott\\.jenkins\\workspace\\cypress_test_pipeline\\cypress-logs.txt')
