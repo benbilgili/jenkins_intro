@@ -5,13 +5,8 @@ pipeline {
         stage('Checkout and Install Dependencies') {
             steps {
                 script {
-                    // Print the current directory to verify the checkout location
                     echo "Current directory: ${pwd()}"
-
-                    // List the contents of the current directory
                     bat 'dir'
-
-                    // Install project dependencies including Cypress
                     bat 'npm install'
                 }
             }
@@ -20,15 +15,12 @@ pipeline {
         stage('Run Cypress Tests') {
             steps {
                 script {
-                    // Define a log file path
-                    def logFilePath = "${env.WORKSPACE}/cypress-logs.txt"
-
-                    // Run Cypress tests and redirect output to the log file
-                    bat "npx cypress run --spec cypress/e2e/mainTest.cy.js > ${logFilePath} 2>&1"
-
-                    // Print the content of the log file
+                    // Run Cypress tests and print logs directly to the console
+                    bat 'npx cypress run --spec cypress/e2e/mainTest.cy.js 1>C:\\Users\\BenScott\\.jenkins\\workspace\\cypress_test_pipeline\\cypress-logs.txt 2>&1'
                     echo "Cypress Logs:"
-                    readFile logFilePath
+                    echo "--- Start of Logs ---"
+                    echo readFile('C:\\Users\\BenScott\\.jenkins\\workspace\\cypress_test_pipeline\\cypress-logs.txt')
+                    echo "--- End of Logs ---"
                 }
             }
         }
