@@ -8,7 +8,7 @@ describe('template', () => {
     // includes '/commands/actions'
     cy.url().should('include', '/sport/football')
     cy.get('.orbit-search-button-icon-only').click()
-    cy.wait(5000)
+    cy.wait(2000)
     cy.get('#searchInput').type('arsenal')
     cy.get('#searchInput').should('have.value', 'arsenal')
     cy.get('#searchButton').click()
